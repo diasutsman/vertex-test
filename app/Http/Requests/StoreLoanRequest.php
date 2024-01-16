@@ -22,9 +22,8 @@ class StoreLoanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'required|integer|min:1',
-            'term' => 'required|integer|min:1',
-            'status' => 'required|in:PENDING,PAID',
+            'amount' => 'required|numeric|min:0',
+            'term' => 'required|numeric|min:0',
         ];
     }
 }

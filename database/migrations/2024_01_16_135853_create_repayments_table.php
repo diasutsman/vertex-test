@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('repayments', function (Blueprint $table) {
             $table->id();
-            $table->foreign('loan_id')->on('loans')->onDelete('cascade');
+            $table->foreignId('loan_id')->on('loans')->onDelete('cascade');
             $table->date('due_date');
             $table->double('amount');
             $table->enum('status', ['PENDING', 'PAID']);

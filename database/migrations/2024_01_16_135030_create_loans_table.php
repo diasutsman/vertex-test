@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->on('users')->onDelete('cascade');
             $table->double('amount');
             $table->integer('term');
-            $table->enum('status', ['PENDING', 'APPROVED', 'PAID']);
+            $table->enum('status', ['PENDING', 'APPROVED', 'PAID'])->default('PENDING');
 
             $table->timestamps();
         });

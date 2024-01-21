@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Loan;
 use App\Http\Requests\StoreLoanRequest;
-use App\Http\Requests\UpdateLoanRequest;
+use Inertia\Inertia;
 
 class LoanController extends Controller
 {
@@ -13,7 +13,11 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Loans/Index', [
+            'loans' => Loan::all(),
+            'success' => session('success'),
+            'error' => session('error'),
+        ]);
     }
 
     /**
@@ -21,7 +25,7 @@ class LoanController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Loans/Create');
     }
 
     /**
@@ -29,7 +33,12 @@ class LoanController extends Controller
      */
     public function store(StoreLoanRequest $request)
     {
-        //
+        Loan::create([
+            'amount' => $request->amount,
+            'term' => $request->term,
+            'user_id' => $request->user()->id,
+        ]);
+        return redirect()->route('loan.index')->with('success', 'Successfully added loan');
     }
 
     /**
@@ -44,14 +53,6 @@ class LoanController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Loan $loan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLoanRequest $request, Loan $loan)
     {
         //
     }
